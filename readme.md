@@ -1,4 +1,4 @@
-# helpers.mvc (MVC6 / ASPNET5 / Core / TagHelpers) ![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)
+# helpers.mvc ![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)
 
 Contains a collection of custom Tag Helpers for building ASP.NET MVC 6 applications.
 
