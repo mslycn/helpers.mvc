@@ -18,7 +18,7 @@ namespace Helpers.Website.Controllers
         public IActionResult Config(int page)
             => GetView(page);
 
-        public async Task<IActionResult> Ajax(int page)
-            => await GetViewAsync(page);
+        public async Task<IActionResult> Ajax(int page, int pageSize)
+            => await GetViewAsync(page, pageSize);
     }
 }
