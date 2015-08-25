@@ -1,0 +1,23 @@
+﻿@model Helpers.Website.Models.IPagedList<Helpers.Website.Models.BasicPersonView>
+
+<div class="page-header">
+    <h1><code>&lt;pager&gt;</code> <small>Basic Usage</small></h1>
+</div>
+
+<div>
+    <h2>Standard parameters</h2>
+    <p>To use a basic configuration, simply set <code>page-index</code>, <code>page-size</code> and <code>total</code>.</p>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <p>@await Html.PartialAsync("_PeopleBasicTable", @Model)</p>
+        <pager asp-action="basic" asp-controller="pager" page-index="Model.Page" page-size="Model.PageSize" total="Model.TotalCount" />
+    </div>
+    <div class="panel-footer">
+        <h5><small>markup</small></h5>
+        <pre class="prettyprint">
+&lt;pager asp-action="basic" asp-controller="pager" page-index="Model.Page" page-size="Model.PageSize" total="Model.TotalCount" /&gt;
+    </pre>
+    </div>
+</div>

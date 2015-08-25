@@ -1,0 +1,24 @@
+﻿@model Helpers.Website.Models.IPagedList<Helpers.Website.Models.BasicPersonView>
+
+<div class="page-header">
+    <h1><code>&lt;pager&gt;</code> <small>Ajax Support</small></h1>
+</div>
+
+<div>
+    <h2>Show a table and pager using a partial view</h2>
+    <p>The control supports the standard ajax properties <code>data-ajax-update</code>, <code>data-ajax-mode</code> and <code>data-ajax</code>.</p>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div id="results">
+            <p>@await Html.PartialAsync("_PeopleAjaxTable", @Model)</p>
+        </div>
+    </div>
+    <div class="panel-footer">
+        <h5><small>markup</small></h5>
+        <pre class="prettyprint">
+&lt;pager data-ajax-update="#results" data-ajax-mode="replace" data-ajax="true /&gt;
+    </pre>
+    </div>
+</div>

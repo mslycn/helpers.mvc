@@ -1,0 +1,36 @@
+﻿@model Helpers.Website.Models.IPagedList<Helpers.Website.Models.BasicPersonView>
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <table class="table table-responsive">
+            <tr>
+                <th><display-name asp-for="@Model.First().Id" /></th>
+                <th><display-name asp-for="@Model.First().FirstName" /></th>
+                <th><display-name asp-for="@Model.First().LastName" /></th>
+            </tr>
+
+            @foreach (var item in Model.Items)
+            {
+                <tr>
+                    <td><display asp-for="@item.Id" /></td>
+                    <td><display asp-for="@item.FirstName" /></td>
+                    <td><display asp-for="@item.LastName" /></td>
+                </tr>
+            }
+        </table>
+
+        <p>
+            <pager asp-action="ajax"
+                   asp-controller="pager"
+                   page-index="Model.Page"
+                   page-size="Model.PageSize"
+                   total="Model.TotalCount"
+                   show-status=true
+                   show-sizes=true
+                   data-ajax-update="#results"
+                   data-ajax-mode="replace"
+                   data-ajax="true">
+            </pager>
+        </p>
+    </div>
+</div>

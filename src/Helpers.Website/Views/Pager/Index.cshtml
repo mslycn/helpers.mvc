@@ -1,0 +1,316 @@
+﻿
+<div class="page-header">
+    <h1><code>&lt;pager&gt;</code> </h1>
+    <p>A flexible pager control that works with Bootstrap or can alternatively be used standalone with custom styling.</p>
+</div>
+
+
+<h2>Usage</h2>
+<code>&lt;pager [options] /&gt;</code>
+<h2>Options</h2>
+<table class="table table-responsive table-bordered table-striped">
+    <tr>
+        <th></th>
+        <th>Attribute</th>
+        <th>Type</th>
+        <th>Default</th>
+        <th>Description</th>
+    </tr>
+    <tbody>
+        <tr>
+            <td><a asp-action="basic"><i class="fa fa-link"></i></a></td>
+            <td><code>asp-for</code></td>
+            <td>string</td>
+            <td>n/a</td>
+            <td>An expression containing the manadatory pager parameters.</td>
+        </tr>
+
+        <tr>
+            <td rowspan="3"><a asp-action="basic"><i class="fa fa-link"></i></a></td>
+            <td><code>asp-action</code></td>
+            <td>string</td>
+            <td>n/a</td>
+            <td>The name of the action method.</td>
+        </tr>
+
+        <tr>
+            <td><code>asp-controller</code></td>
+            <td>string</td>
+            <td>n/a</td>
+            <td>The name of the controller.</td>
+        </tr>
+
+        <tr>
+            <td><code>asp-route-*</code></td>
+            <td>string</td>
+            <td>n/a</td>
+            <td>Any additional route parameters that may be required.</td>
+        </tr>
+
+        <tr>
+            <td rowspan="3"><a asp-action="basic"><i class="fa fa-link"></i></a></td>
+            <td><code>page</code></td>
+            <td>int</td>
+            <td>1</td>
+            <td>Current page.</td>
+        </tr>
+        <tr>
+            <td><code>page-size</code></td>
+            <td>int</td>
+            <td>10</td>
+            <td>Number of rows shown on the page.</td>
+        </tr>
+        <tr>
+            <td><code>total</code></td>
+            <td>int</td>
+            <td>0</td>
+            <td>Total number of records in the enumeration.</td>
+        </tr>
+
+        <tr>
+            <td><a href="#links"><i class="fa fa-link"></i></a></td>
+            <td><code>links</code></td>
+            <td>int</td>
+            <td>5</td>
+            <td>The maximum number of page links to be shown.</td>
+        </tr>
+        <tr>
+            <td><a href="#halign"><i class="fa fa-link"></i></a></td>
+            <td><code>halign</code></td>
+            <td>HorizontalAlignment</td>
+            <td>Right</td>
+            <td>Set the horizontal alignment.</td>
+        </tr>
+        <tr>
+            <td><a href="#showstatus"><i class="fa fa-link"></i></a></td>
+            <td><code>show-status</code></td>
+            <td>bool</td>
+            <td>true</td>
+            <td>Show the current page status message.</td>
+        </tr>
+        <tr>
+            <td><a href="#customstatus"><i class="fa fa-link"></i></a></td>
+            <td><code>status-format</code></td>
+            <td>string</td>
+            <td>Showing {0} to {1} of {2} entries</td>
+            <td>Pager status message.</td>
+        </tr>
+        <tr>
+            <td><a href="#showsizes"><i class="fa fa-link"></i></a></td>
+            <td><code>show-sizes</code></td>
+            <td>bool</td>
+            <td>true</td>
+            <td>Possible page sizes that can be changed by the user.</td>
+        </tr>
+        <tr>
+            <td><a href="#customsizes"><i class="fa fa-link"></i></a></td>
+            <td><code>sizes-format</code></td>
+            <td>string</td>
+            <td>10, 25, 50, 100</td>
+            <td>A comma-separated list of the available page sizes that can be selected.</td>
+        </tr>
+        <tr>
+            <td><a href="#class"><i class="fa fa-link"></i></a></td>
+            <td><code>class</code></td>
+            <td>string</td>
+            <td>n/a</td>
+            <td>Append to the default class of the pager. For example "pagination-lg".</td>
+        </tr>
+    </tbody>
+</table>
+
+
+<!-- HALIGN -->
+
+
+<div id="halign" class="page-header">
+    <h2>Horizonal Alignment</h2>
+</div>
+
+<div>
+    <h4>Left aligned</h4>
+</div>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <pager halign="HorizontalAlignment.Left" asp-fragment="halign" />
+    </div>
+    <div class="panel-footer">
+        <pre class="prettyprint">
+&lt;pager halign="HorizontalAlignment.Left" /&gt;
+    </pre>
+    </div>
+</div>
+
+<div>
+    <h4>Right aligned (Default)</h4>
+</div>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <pager halign="HorizontalAlignment.Right" asp-fragment="halign" />
+    </div>
+    <div class="panel-footer">
+        <pre class="prettyprint">
+&lt;pager halign="HorizontalAlignment.Right" /&gt;
+    </pre>
+    </div>
+</div>
+
+
+<!-- CLASS -->
+
+
+<div id="class" class="page-header">
+    <h2>Class</h2>
+</div>
+
+<div>
+    <h4>Standard (Default)</h4>
+</div>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <pager halign="HorizontalAlignment.Left" class="pagination" asp-fragment="class" />
+    </div>
+    <div class="panel-footer">
+        <pre class="prettyprint">
+&lt;pager halign="HorizontalAlignment.Left" class="pagination" /&gt;
+    </pre>
+    </div>
+</div>
+
+<div>
+    <h4>Small</h4>
+</div>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <pager halign="HorizontalAlignment.Left" class="pagination-sm" asp-fragment="class" />
+    </div>
+    <div class="panel-footer">
+        <pre class="prettyprint">
+&lt;pager halign="HorizontalAlignment.Left" class="pagination-sm" /&gt;
+    </pre>
+    </div>
+</div>
+
+<div>
+    <h4>Large</h4>
+</div>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <pager halign="HorizontalAlignment.Left" class="pagination-lg" asp-fragment="class" />
+    </div>
+    <div class="panel-footer">
+        <pre class="prettyprint">
+&lt;pager halign="HorizontalAlignment.Left" class="pagination-lg" /&gt;
+    </pre>
+    </div>
+</div>
+
+
+<!-- LINKS -->
+
+
+<div id="links" class="page-header">
+    <h2>Links</h2>
+</div>
+
+<div>
+    <h4>Display a maximum of 3 Links</h4>
+</div>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <pager links="3" asp-fragment="links" />
+    </div>
+    <div class="panel-footer">
+        <pre class="prettyprint">
+&lt;pager links="3" /&gt;
+    </pre>
+    </div>
+</div>
+
+
+<!-- SHOW PAGE SIZES -->
+
+
+<div id="showsizes" class="page-header">
+    <h2>Page Sizes</h2>
+</div>
+
+<div>
+    <h4>Show the default page sizes</h4>
+</div>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <pager show-sizes="true" asp-fragment="showsizes" />
+    </div>
+    <div class="panel-footer">
+        <pre class="prettyprint">
+&lt;pager show-sizes="true" /&gt;
+    </pre>
+    </div>
+</div>
+
+
+<!-- CUSTOM PAGE SIZES -->
+
+
+<div class="page-header">
+    <h2 id="customsizes">Custom Page Sizes</h2>
+</div>
+
+<div>
+    <h4>Show a custom set of page sizes</h4>
+</div>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <pager show-sizes="true" sizes-format="5, 10, 20, 30, 40, 50" asp-fragment="customsizes" />
+    </div>
+    <div class="panel-footer">
+        <pre class="prettyprint">
+&lt;pager show-sizes="true" sizes-format="5, 10, 20, 30, 40, 50"  /&gt;
+    </pre>
+    </div>
+</div>
+
+
+<!-- SHOW STATUS -->
+
+
+<div class="page-header">
+    <h2 id="showstatus">Status</h2>
+</div>
+
+<div>
+    <h4>Show the page status</h4>
+</div>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <pager show-status="true" halign="HorizontalAlignment.Right" asp-fragment="showstatus" />
+    </div>
+    <div class="panel-footer">
+        <pre class="prettyprint">
+&lt;pager show-status="true" /&gt;
+    </pre>
+    </div>
+</div>
+
+
+<!-- CUSTOM STATUS -->
+
+
+<div class="page-header">
+    <h2 id="customstatus">Custom Status</h2>
+</div>
+
+<div>
+    <h4>Show a custom page status</h4>
+</div>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <pager show-status="true" status-format="Displaying {0}-{1} (of {2})" halign="HorizontalAlignment.Right" asp-fragment="customstatus" />
+    </div>
+    <div class="panel-footer">
+        <pre class="prettyprint">
+&lt;pager show-status="true" status-format="Displaying {0}-{1} (of {2})" /&gt;
+    </pre>
+    </div>
+</div>

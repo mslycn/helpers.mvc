@@ -1,0 +1,18 @@
+﻿@model Helpers.Website.Models.IPagedList<Helpers.Website.Models.BasicPersonView>
+
+<table class="table">
+    <tr>
+        <th><display-name asp-for="@Model.First().Id" /></th>
+        <th><display-name asp-for="@Model.First().FirstName" /></th>
+        <th><display-name asp-for="@Model.First().LastName" /></th>
+    </tr>
+
+    @foreach (var item in Model.Items)
+    {
+        <tr>
+            <td><display asp-for="@item.Id" /></td>
+            <td><display asp-for="@item.FirstName" /></td>
+            <td><display asp-for="@item.LastName" /></td>
+        </tr>
+    }
+</table>

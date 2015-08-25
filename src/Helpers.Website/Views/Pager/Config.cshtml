@@ -1,0 +1,72 @@
+﻿@model Helpers.Website.Models.IPagedList<Helpers.Website.Models.BasicPersonView>
+
+<div class="page-header">
+    <h1><code>&lt;pager&gt;</code> <small>Configuration</small></h1>
+</div>
+
+<div id="model">
+    <h2>View model</h2>
+    <p>
+        To use the view's model, set the <code>asp-for</code> attribute. The control will expect the view to contain
+        the <code>page-index</code>, <code>page-size</code> and <code>total</code> properties.
+    </p>
+</div>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div id="results">
+            <pager asp-for="@Model" asp-fragment="model" />
+        </div>
+    </div>
+    <div class="panel-footer">
+        <h5><small>markup</small></h5>
+        <pre class="prettyprint">
+&lt;pager asp-for="@@Model" /&gt;
+    </pre>
+    </div>
+</div>
+
+
+
+<div id="zero">
+    <h2>Zero parameters</h2>
+    <p>
+        You can create the <code>&lt;pager&gt;</code> without passing any parameters. The control will expect to find
+        the attributes <code>page-index</code>, <code>page-size</code> and <code>total</code> defined in the current view's model.
+    </p>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div id="results">
+            <pager asp-fragment="zero"/>
+        </div>
+    </div>
+    <div class="panel-footer">
+        <h5><small>markup</small></h5>
+        <pre class="prettyprint">
+&lt;pager /&gt;
+    </pre>
+    </div>
+</div>
+
+
+<div id="standard">
+    <h2>Standard parameters</h2>
+    <p>To use a basic configuration, simply set <code>page-index</code>, <code>page-size</code> and <code>total</code>.</p>
+</div>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div id="results">
+            <pager page-index="@Model.Page" page-size="@Model.PageSize" total="@Model.TotalCount" asp-fragment="standard" />
+        </div>
+    </div>
+    <div class="panel-footer">
+        <h5><small>markup</small></h5>
+        <pre class="prettyprint">
+&lt;pager page-index="@Model.Page" page-size="@Model.PageSize" total="@Model.TotalCount" /&gt;
+    </pre>
+    </div>
+</div>
+
+
+
