@@ -228,7 +228,7 @@ namespace Helpers.TagHelpers
                             {
                                 RouteValues["pageSize"] = item;
                                 var li = new FluentTagBuilder()
-                                   .StartTag("li").Anchor(UrlHelper.Action(AspAction, AspController, RouteValues), item, AjaxValues).EndTag();
+                                   .StartTag("li").Anchor(UrlHelper.Action(AspAction, AspController, RouteValues, AspProtocol, AspHost, AspFragment), item, AjaxValues).EndTag();
                                 menu.Append(li);
                             }
                         })
