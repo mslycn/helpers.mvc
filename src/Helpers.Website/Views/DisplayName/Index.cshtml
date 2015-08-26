@@ -1,0 +1,60 @@
+﻿@model Helpers.Website.Models.BasicPersonView
+
+<div class="page-header">
+    <h1><code>&lt;display-name&gt;</code> </h1>
+    <p>An alternative to the Html Helper <code>Html.DisplayNameFor()</code>.</p>
+</div>
+
+<h2>Usage</h2>
+<code>&lt;display-name [Options] /&gt;</code>
+
+<h2>Options</h2>
+<table class="table table-responsive table-bordered table-striped">
+    <tr>
+        <th></th>
+        <th>Attribute</th>
+        <th>Type</th>
+        <th>Default</th>
+        <th>Description</th>
+    </tr>
+    <tbody>
+        <tr>
+            <td><a href="#for"><i class="fa fa-link"></i></a></td>
+            <td>asp-for</td>
+            <td>string</td>
+            <td>n/a</td>
+            <td>An expression to be evaluated against the current model.</td>
+        </tr>
+    </tbody>
+</table>
+
+
+<!-- FOR -->
+
+
+<div id="for" class="page-header">
+    <h2>For</h2>
+</div>
+
+<div class="bs-callout">
+    <h4>Show the title with any annotations applied</h4>
+</div>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <display-name asp-for="FirstName" />
+    </div>
+    <div class="panel-footer">
+        <h5><small>markup</small></h5>
+        <pre class="prettyprint">
+&lt;display-name asp-for="FirstName" /&gt;
+</pre>
+        <h5><small>model</small></h5>
+        <pre class="prettyprint">
+public class BasicPersonView
+{
+    [Display(Order = 1, Name = "First")]
+    public string FirstName { get; set; }
+}
+</pre>
+    </div>
+</div>

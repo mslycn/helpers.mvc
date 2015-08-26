@@ -1,0 +1,90 @@
+﻿@model Helpers.Website.Models.BasicPersonView
+
+<div class="page-header">
+    <h1><code>&lt;display&gt;</code> <small>Basic Usage</small></h1>
+</div>
+
+<div class="bs-callout">
+    <h2>Show the values for a record in the person view model</h2>
+    <p>Set the <code>asp-for</code> attribute of the <code>&lt;display&gt;</code> tag to an expression that will be evaluated against the current model.</p>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <table class="table table-responsive table-striped js-options-table">
+            <thead>
+                <tr>
+                    <th>annotation(s)</th>
+                    <th>model property</th>
+                    <th>model value</th>
+                    <th><code>@@Html.DispayFor</code></th>
+                    <th><code>&lt;display asp-for&gt;</code></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><div class="label label-default">UIHint("_PersonLink")</div></td>
+                    <td>Id</td>
+                    <td>@Model.Id</td>
+                    <td>@Html.DisplayFor(m => m.Id)</td>
+                    <td style="background-color:lightgoldenrodyellow"><display asp-for="Id"></display></td>
+                </tr>
+                <tr>
+                    <td><div class="label label-default">-</div></td>
+                    <td>FirstName</td>
+                    <td>@Model.FirstName</td>
+                    <td>@Html.DisplayFor(m => m.FirstName)</td>
+                    <td style="background-color:lightgoldenrodyellow"><display asp-for="FirstName"></display></td>
+                </tr>
+                <tr>
+                    <td><div class="label label-default">-</div></td>
+                    <td>LastName</td>
+                    <td>@Model.LastName</td>
+                    <td>@Html.DisplayFor(m => m.LastName)</td>
+                    <td style="background-color:lightgoldenrodyellow"><display asp-for="LastName"></display></td>
+                </tr>
+                <tr>
+                    <td><div class="label label-default">UIHint("CustomDate")</div></td>
+                    <td>BirthDate</td>
+                    <td>@Model.BirthDate</td>
+                    <td>@Html.DisplayFor(m => m.BirthDate)</td>
+                    <td style="background-color:lightgoldenrodyellow"><display asp-for="BirthDate"></display></td>
+                </tr>
+                <tr>
+                    <td><div class="label label-default">UIHint("MailTo")</div></td>
+                    <td>@nameof(Model.Email)</td>
+                    <td>@Model.Email</td>
+                    <td>@Html.DisplayFor(m => m.Email)</td>
+                    <td style="background-color:lightgoldenrodyellow"><display asp-for="Email"></display></td>
+                </tr>
+                <tr>
+                    <td><div class="label label-default">DisplayFormat("{0:C}")</div></td>
+                    <td>@nameof(Model.Salary)</td>
+                    <td>@Model.Salary</td>
+                    <td>@Html.DisplayFor(m => m.Salary)</td>
+                    <td style="background-color:lightgoldenrodyellow"><display asp-for="Salary"></display></td>
+                </tr>
+                <tr>
+                    <td><div class="label label-default">-</div></td>
+                    <td>@nameof(Model.FavoriteColor)</td>
+                    <td>@Model.FavoriteColor</td>
+                    <td>@Html.DisplayFor(m => m.FavoriteColor)</td>
+                    <td style="background-color:lightgoldenrodyellow"><display asp-for="FavoriteColor"></display></td>
+                </tr>
+                <tr>
+                    <td><div class="label label-default">-</div></td>
+                    <td>@nameof(Model.FullName)</td>
+                    <td>@Model.FullName</td>
+                    <td>@Html.DisplayFor(m => m.FullName)</td>
+                    <td style="background-color:lightgoldenrodyellow"><display asp-for="FullName"></display></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="panel-footer">
+        <h5><small>markup</small></h5>
+        <pre class="prettyprint">
+&lt;display asp-for="#" /&gt;
+    </pre>
+    </div>
+</div>

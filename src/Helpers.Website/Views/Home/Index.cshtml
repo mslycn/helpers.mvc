@@ -3,8 +3,32 @@
 }
 
 <div class="row">
+    <h1><span class="label label-success">TagHelpers</span></h1>
     <div class="col-md-12">
-        <div class="col-md-4">
+
+        <div class="col-md-3">
+            <h4>
+                <span class="label label-default">&lt;display&gt;</span>
+                <small>
+                    <a asp-action="index" asp-controller="display" title="Options" class="text-muted"><i class="fa fa-fw fa-info-circle"></i></a>
+                </small>
+            </h4>
+            <ul>
+                <li class=""><a asp-action="basic" asp-controller="display">Basic Usage</a></li>
+            </ul>
+
+            <h4>
+                <span class="label label-default">&lt;display-name&gt;</span>
+                <small>
+                    <a asp-action="index" asp-controller="displayname" title="Options" class="text-muted"><i class="fa fa-fw fa-info-circle"></i></a>
+                </small>
+            </h4>
+            <ul>
+                <li class=""><a asp-action="basic" asp-controller="displayname">Basic Usage</a></li>
+            </ul>
+        </div>
+
+        <div class="col-md-3">
             <h4>
                 <span class="label label-default">&lt;pager&gt;</span>
                 <small>
@@ -17,5 +41,6 @@
                 <li><a asp-action="ajax" asp-controller="pager">Ajax support</a></li>
             </ul>
         </div>
+
     </div>
 </div>
