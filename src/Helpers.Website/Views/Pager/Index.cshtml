@@ -113,8 +113,8 @@
             <td><a href="#class"><i class="fa fa-link"></i></a></td>
             <td><code>class</code></td>
             <td>string</td>
-            <td>n/a</td>
-            <td>Append to the default class of the pager. For example "pagination-lg".</td>
+            <td>pagination</td>
+            <td>Set the class to be used by the pager. For example "pagination pagination-lg".</td>
         </tr>
     </tbody>
 </table>
@@ -168,11 +168,11 @@
 </div>
 <div class="panel panel-default">
     <div class="panel-body">
-        <pager halign="HorizontalAlignment.Left" class="pagination" asp-fragment="class" />
+        <pager halign="HorizontalAlignment.Left" asp-fragment="class" />
     </div>
     <div class="panel-footer">
         <pre class="prettyprint">
-&lt;pager halign="HorizontalAlignment.Left" class="pagination" /&gt;
+&lt;pager halign="HorizontalAlignment.Left" /&gt;
     </pre>
     </div>
 </div>
@@ -182,11 +182,11 @@
 </div>
 <div class="panel panel-default">
     <div class="panel-body">
-        <pager halign="HorizontalAlignment.Left" class="pagination-sm" asp-fragment="class" />
+        <pager halign="HorizontalAlignment.Left" class="pagination pagination-sm" asp-fragment="class" />
     </div>
     <div class="panel-footer">
         <pre class="prettyprint">
-&lt;pager halign="HorizontalAlignment.Left" class="pagination-sm" /&gt;
+&lt;pager halign="HorizontalAlignment.Left" class="pagination pagination-sm" /&gt;
     </pre>
     </div>
 </div>
@@ -196,11 +196,26 @@
 </div>
 <div class="panel panel-default">
     <div class="panel-body">
-        <pager halign="HorizontalAlignment.Left" class="pagination-lg" asp-fragment="class" />
+        <pager halign="HorizontalAlignment.Left" class="pagination pagination-lg" asp-fragment="class" />
     </div>
     <div class="panel-footer">
         <pre class="prettyprint">
-&lt;pager halign="HorizontalAlignment.Left" class="pagination-lg" /&gt;
+&lt;pager halign="HorizontalAlignment.Left" class="pagination pagination-lg" /&gt;
+    </pre>
+    </div>
+</div>
+
+
+<div>
+    <h4>Alternative</h4>
+</div>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <pager halign="HorizontalAlignment.Left" class="pager" asp-fragment="class" />
+    </div>
+    <div class="panel-footer">
+        <pre class="prettyprint">
+&lt;pager halign="HorizontalAlignment.Left" class="pager" /&gt;
     </pre>
     </div>
 </div>

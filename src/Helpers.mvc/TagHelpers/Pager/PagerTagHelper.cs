@@ -69,7 +69,7 @@ namespace Helpers.TagHelpers
         #region IPagerAttributes
         ///<inheritDoc/>
         [HtmlAttributeName("class")]
-        public string PagerClass { get; set; }
+        public string PagerClass { get; set; } = PagerDefaults.Class;
         ///<inheritDoc/>
         [HtmlAttributeName("links")]
         public int PagerLinks { get; set; } = PagerDefaults.Links;
@@ -256,7 +256,7 @@ namespace Helpers.TagHelpers
 
             return new FluentTagBuilder()
                 .StartTag("div", "col-md-6")
-                    .StartTag("ul", $"pagination {ulClass} {PagerClass}")
+                    .StartTag("ul", $"{ulClass} {PagerClass}")
                         .Append(AddLink(1, false, pageIndex == 1, PagerFirstText, StringResources.PagerFirstHint))
                         .Append(AddLink(pageIndex - 1, false, !hasPreviousPage, PagerPrevText, StringResources.PagerPrevHint))
                         .Action(tag =>
