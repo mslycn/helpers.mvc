@@ -5,6 +5,7 @@ using Microsoft.AspNet.Mvc.ModelBinding;
 using Microsoft.AspNet.Mvc.Rendering;
 using Microsoft.AspNet.Razor.Runtime.TagHelpers;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -14,7 +15,7 @@ namespace Helpers.TagHelpers
     /// <see cref="ITagHelper"/>An implementation of a custom &lt;pager&gt; control.
     /// </summary>
     [TargetElement("pager")]
-    public class PagerTagHelper : TagHelper
+    public class PagerTagHelper : TagHelper, IPagerAttributes
     {
         ///<exclude/>
         [HtmlAttributeNotBound, ViewContext]
@@ -65,6 +66,7 @@ namespace Helpers.TagHelpers
         public int Total { get; set; } = 0;
         private const string TotalAttributeName = "total";
 
+        #region IPagerAttributes
         ///<inheritDoc/>
         [HtmlAttributeName("class")]
         public string PagerClass { get; set; }
@@ -98,11 +100,16 @@ namespace Helpers.TagHelpers
         ///<inheritDoc/>
         [HtmlAttributeName("last-text")]
         public string PagerLastText { get; set; } = StringResources.PagerLastText;
+        #endregion
 
         ///<exclude/>
         private const string RouteAttributePrefix = "asp-route-";
         ///<exclude/>
+        private IDictionary<string, object> RouteValues;
+        ///<exclude/>
         private const string AjaxAttributePrefix = "data-ajax";
+        ///<exclude/>
+        private IDictionary<string, object> AjaxValues;
 
         ///<exclude/>
         private string[] PossiblePageIndexParameterNames = { "Page", "Current", "Index", "CurrentPage" };
@@ -118,6 +125,9 @@ namespace Helpers.TagHelpers
 
         public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
         {
+            RouteValues = output.TrimPrefixedAttributes(RouteAttributePrefix);
+            AjaxValues = output.FindPrefixedAttributes(AjaxAttributePrefix);
+
             //has an action or controller been specified? if not, default
             if (string.IsNullOrEmpty(AspAction))
                 AspAction = (string)ViewContext.RouteData.Values["action"];
@@ -165,19 +175,19 @@ namespace Helpers.TagHelpers
                     {
                         if (PagerHalign == HorizontalAlignment.Left)
                         {
-                            tag.Append(CreatePager(output, pageIndex, totalItems, pageSize));
-                            tag.Append(CreateStatus(output, pageIndex, totalItems, pageSize));
+                            tag.Append(CreatePager(pageIndex, totalItems, pageSize));
+                            tag.Append(CreateStatus(pageIndex, totalItems, pageSize));
                         }
                         else
                         {
-                            tag.Append(CreateStatus(output, pageIndex, totalItems, pageSize));
-                            tag.Append(CreatePager(output, pageIndex, totalItems, pageSize));
+                            tag.Append(CreateStatus(pageIndex, totalItems, pageSize));
+                            tag.Append(CreatePager(pageIndex, totalItems, pageSize));
                         }
                     })
                 .EndTag();
         }
 
-        private string CreateStatus(TagHelperOutput output, int pageIndex, int totalItems, int pageSize)
+        private string CreateStatus(int pageIndex, int totalItems, int pageSize)
         {
             return new FluentTagBuilder()
                 .StartTag("div", "col-md-6")
@@ -194,17 +204,14 @@ namespace Helpers.TagHelpers
                     })
                     .ActionIf(PagerShowSizes, tag =>
                     {
-                        tag.Append(CreateStatusList(output, pageIndex, totalItems, pageSize));
+                        tag.Append(CreateStatusList(pageIndex, totalItems, pageSize));
                     })
                 .EndTag();
         }
 
-        private string CreateStatusList(TagHelperOutput output, int pageIndex, int totalItems, int pageSize)
+        private string CreateStatusList(int pageIndex, int totalItems, int pageSize)
         {
-            var routeValues = output.TrimPrefixedAttributes(RouteAttributePrefix);
-            var ajaxValues = output.FindPrefixedAttributes(AjaxAttributePrefix);
-
-            routeValues["page"] = pageIndex;
+            RouteValues["page"] = pageIndex;
             string[] pageList = PagerSizesFormat.Split(',').Select(s => s.Trim()).ToArray();
 
             return new FluentTagBuilder()
@@ -219,9 +226,9 @@ namespace Helpers.TagHelpers
                         {
                             foreach (string item in pageList)
                             {
-                                routeValues["pageSize"] = item;
+                                RouteValues["pageSize"] = item;
                                 var li = new FluentTagBuilder()
-                                   .StartTag("li").Anchor(UrlHelper.Action(AspAction, AspController, routeValues), item, ajaxValues).EndTag();
+                                   .StartTag("li").Anchor(UrlHelper.Action(AspAction, AspController, RouteValues), item, AjaxValues).EndTag();
                                 menu.Append(li);
                             }
                         })
@@ -232,7 +239,7 @@ namespace Helpers.TagHelpers
                 .EndTag();
         }
 
-        private string CreatePager(TagHelperOutput output, int pageIndex, int totalItems, int pageSize)
+        private string CreatePager(int pageIndex, int totalItems, int pageSize)
         {
             if (totalItems <= 0)
                 return string.Empty;
@@ -250,28 +257,26 @@ namespace Helpers.TagHelpers
             return new FluentTagBuilder()
                 .StartTag("div", "col-md-6")
                     .StartTag("ul", $"pagination {ulClass} {PagerClass}")
-                        .Append(AddLink(output, 1, false, pageIndex == 1, PagerFirstText, StringResources.PagerFirstHint))
-                        .Append(AddLink(output, pageIndex - 1, false, !hasPreviousPage, PagerPrevText, StringResources.PagerPrevHint))
+                        .Append(AddLink(1, false, pageIndex == 1, PagerFirstText, StringResources.PagerFirstHint))
+                        .Append(AddLink(pageIndex - 1, false, !hasPreviousPage, PagerPrevText, StringResources.PagerPrevHint))
                         .Action(tag =>
                         {
                             for (int i = firstPageNumber; i <= lastPageNumber; i++)
-                                tag.Append(AddLink(output, i, i == pageIndex, false, i.ToString(), i.ToString()));
+                                tag.Append(AddLink(i, i == pageIndex, false, i.ToString(), i.ToString()));
                         })
-                        .Append(AddLink(output, pageIndex + 1, false, !hasNextPage, PagerNextText, StringResources.PagerNextHint))
-                        .Append(AddLink(output, totalPages, false, pageIndex == totalPages, PagerLastText, StringResources.PagerLastHint))
+                        .Append(AddLink(pageIndex + 1, false, !hasNextPage, PagerNextText, StringResources.PagerNextHint))
+                        .Append(AddLink(totalPages, false, pageIndex == totalPages, PagerLastText, StringResources.PagerLastHint))
                     .EndTag()
                 .EndTag();
         }
 
-        private string AddLink(TagHelperOutput output, int index, bool active, bool disabled, string linkText, string tooltip)
+        private string AddLink(int index, bool active, bool disabled, string linkText, string tooltip)
         {
-            var routeValues = output.TrimPrefixedAttributes(RouteAttributePrefix);
-            var ajaxValues = output.FindPrefixedAttributes(AjaxAttributePrefix);
             if (!disabled)
             {
-                routeValues["page"] = index;
+                RouteValues["page"] = index;
                 if (PagerShowSizes)
-                    routeValues["pageSize"] = PageSize;
+                    RouteValues["pageSize"] = PageSize;
             }
 
             return new FluentTagBuilder()
@@ -281,8 +286,8 @@ namespace Helpers.TagHelpers
                     .ActionIf(disabled, tag => tag.CombineAttribute("class", "disabled"))
                     .StartTag("a")
                         .Attribute("title", tooltip)
-                        .ActionIf(!disabled, tag => tag.Attribute("href", UrlHelper.Action(AspAction, AspController, routeValues, AspProtocol, AspHost, AspFragment)))
-                        .Attributes(ajaxValues)
+                        .ActionIf(!disabled, tag => tag.Attribute("href", UrlHelper.Action(AspAction, AspController, RouteValues, AspProtocol, AspHost, AspFragment)))
+                        .Attributes(AjaxValues)
                         .Append(linkText)
                     .EndTag()
                 .EndTag();
