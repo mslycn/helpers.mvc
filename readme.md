@@ -1,4 +1,4 @@
-# helpers.mvc ![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)
+# helpers.mvc ![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square) [![nuget package](https://img.shields.io/nuget/v/helpers.mvc.png?style=flat-square)](https://www.nuget.org/profiles/simonray)
 
 Contains a collection of custom Tag Helpers for building ASP.NET MVC 6 applications.
 
@@ -22,7 +22,7 @@ Add the following to the `_ViewImports.cshtml` file
 
 ###Pager
 ```html
-<pager show-status=true show-sizes=true />
+<pager asp-for="@Model" show-status=true show-sizes=true />
 ```
 ![Alt text](http://s2.postimg.org/4u0fnrxsp/screenshot.png "pager")
 
