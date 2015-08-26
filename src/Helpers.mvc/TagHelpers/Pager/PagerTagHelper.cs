@@ -228,7 +228,7 @@ namespace Helpers.TagHelpers
                     .EndTag()
                 .EndTag()
                 .StartTag("text").Style("display: inline-block;")
-                    .Append("&nbsp;records per page")
+                    .Append($"&nbsp;{StringResources.PagerSizesText}")
                 .EndTag();
         }
 
