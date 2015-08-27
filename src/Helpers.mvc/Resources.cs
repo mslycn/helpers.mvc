@@ -1,7 +1,11 @@
-﻿
-namespace Helpers.TagHelpers
+﻿namespace Helpers.TagHelpers
 {
-    public static partial class StringResources
+    internal static partial class AppResources
+    {
+        public const string DisplayTemplateViewPath = "DisplayTemplates";
+    }
+
+    internal static partial class StringResources
     {
         public static string PagerStatusFormat = "Showing {0} to {1} of {2} entries";
         public static string PagerSizesText = "records per page";

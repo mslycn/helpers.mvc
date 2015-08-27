@@ -29,7 +29,7 @@ namespace Helpers.TagHelpers
 
             if (AspFor.Metadata?.TemplateHint != null)
                 output.Content.SetContent(
-                    HtmlHelper.Partial($"DisplayTemplates/{AspFor.Metadata.TemplateHint}", AspFor.Model).ToString());
+                    HtmlHelper.Partial($"{AppResources.DisplayTemplateViewPath}/{AspFor.Metadata.TemplateHint}", AspFor.Model).ToString());
             else
                 output.Content.SetContent(
                     string.Format(System.Globalization.CultureInfo.CurrentCulture,
