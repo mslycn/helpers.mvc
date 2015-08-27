@@ -100,6 +100,15 @@ namespace Helpers.TagHelpers
         ///<inheritDoc/>
         [HtmlAttributeName("last-text")]
         public string PagerLastText { get; set; } = StringResources.PagerLastText;
+        ///<inheritDoc/>
+        [HtmlAttributeName("hide-first-last")]
+        public bool PagerHideFirstLast { get; set; }
+        ///<inheritDoc/>
+        [HtmlAttributeName("hide-next-prev")]
+        public bool PagerHideNextPrev { get; set; }
+        ///<inheritDoc/>
+        [HtmlAttributeName("hide-page-skips")]
+        public bool PagerHidePageSkips { get; set; }
         #endregion
 
         ///<exclude/>
@@ -257,15 +266,19 @@ namespace Helpers.TagHelpers
             return new FluentTagBuilder()
                 .StartTag("div", "col-md-6")
                     .StartTag("ul", $"{ulClass} {PagerClass}")
-                        .Append(AddLink(1, false, pageIndex == 1, PagerFirstText, StringResources.PagerFirstHint))
-                        .Append(AddLink(pageIndex - 1, false, !hasPreviousPage, PagerPrevText, StringResources.PagerPrevHint))
+                        .AppendIf(!PagerHidePageSkips && !PagerHideFirstLast,
+                            AddLink(1, false, pageIndex == 1, PagerFirstText, StringResources.PagerFirstHint))
+                        .AppendIf(!PagerHidePageSkips && !PagerHideNextPrev,
+                            AddLink(pageIndex - 1, false, !hasPreviousPage, PagerPrevText, StringResources.PagerPrevHint))
                         .Action(tag =>
                         {
                             for (int i = firstPageNumber; i <= lastPageNumber; i++)
                                 tag.Append(AddLink(i, i == pageIndex, false, i.ToString(), i.ToString()));
                         })
-                        .Append(AddLink(pageIndex + 1, false, !hasNextPage, PagerNextText, StringResources.PagerNextHint))
-                        .Append(AddLink(totalPages, false, pageIndex == totalPages, PagerLastText, StringResources.PagerLastHint))
+                        .AppendIf(!PagerHidePageSkips && !PagerHideNextPrev, 
+                                AddLink(pageIndex + 1, false, !hasNextPage, PagerNextText, StringResources.PagerNextHint))
+                        .AppendIf(!PagerHidePageSkips && !PagerHideFirstLast, 
+                                AddLink(totalPages, false, pageIndex == totalPages, PagerLastText, StringResources.PagerLastHint))
                     .EndTag()
                 .EndTag();
         }

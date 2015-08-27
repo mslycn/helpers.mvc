@@ -50,5 +50,17 @@ namespace Helpers.TagHelpers
         /// Text for the last button.
         /// </summary>
         string PagerLastText { get; set; }
+        /// <summary>
+        /// Visibility of the first and last buttons
+        /// </summary>
+        bool PagerHideFirstLast { get; set; }
+        /// <summary>
+        /// Visibility of the next and previous buttons
+        /// </summary>
+        bool PagerHideNextPrev { get; set; }
+        /// <summary>
+        /// Visibility of the skip buttons
+        /// </summary>
+        bool PagerHidePageSkips { get; set; }
     }
 }

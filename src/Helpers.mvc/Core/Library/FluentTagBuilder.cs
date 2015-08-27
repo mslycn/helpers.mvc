@@ -26,6 +26,14 @@ namespace Helpers.Core.Library
             return this;
         }
 
+        public FluentTagBuilder AppendIf(bool condition, string content)
+        {
+            if (condition)
+                return Append(content);
+            else
+                return this;
+        }
+
         public FluentTagBuilder Append(Func<FluentTagBuilder, FluentTagBuilder> predicate)
             => Append(predicate(this));
 
