@@ -3,7 +3,7 @@
 namespace Helpers.Core.Extensions
 {
     /// <exclude/>
-    public static partial class ExtensionMethods
+    internal static partial class ExtensionMethods
     {
         /// <exclude/>
         public static string SplitCamelCase(this string str, char sep = ' ')

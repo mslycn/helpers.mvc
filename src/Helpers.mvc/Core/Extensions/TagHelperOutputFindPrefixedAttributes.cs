@@ -6,7 +6,7 @@ using System.Linq;
 namespace Helpers.Core.Extensions
 {
     /// <exclude/>
-    public static partial class ExtensionMethods
+    internal static partial class ExtensionMethods
     {
         /// <summary>
         /// Returns all attributes from <paramref name="tagHelperOutput"/>'s.

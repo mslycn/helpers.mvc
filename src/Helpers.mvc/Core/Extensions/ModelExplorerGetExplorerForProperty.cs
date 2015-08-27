@@ -2,7 +2,7 @@
 
 namespace Helpers.Core.Extensions
 {
-    public static partial class ExtensionMethods
+    internal static partial class ExtensionMethods
     {
         public static ModelExplorer GetExplorerForProperty(this ModelExplorer @this, string[] properties)
         {

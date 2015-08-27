@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Helpers.Core.Extensions
 {
-    public static partial class ExtensionMethods
+    internal static partial class ExtensionMethods
     {
         public static IDictionary<string, object> GetHtmlAttributeDictionary(this object @this)
         {

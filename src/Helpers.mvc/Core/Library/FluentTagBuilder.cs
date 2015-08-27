@@ -10,7 +10,7 @@ namespace Helpers.Core.Library
     /// Fluent tag builder
     /// </summary>
     /// <remarks>Based on http://www.wiktorzychla.com/2012/02/simple-fluent-and-recursive-tag-builder.html ></remarks>
-    public class FluentTagBuilder
+    internal class FluentTagBuilder
     {
         private string _tagName;
         private FluentTagBuilder _parent;
@@ -43,7 +43,7 @@ namespace Helpers.Core.Library
             tag._tagName = tagName;
             tag._parent = this;
             if (!string.IsNullOrEmpty(classAttribute))
-                tag.Attribute("class", classAttribute);
+                tag.Attribute("class", classAttribute.Trim());
             return tag;
         }
 

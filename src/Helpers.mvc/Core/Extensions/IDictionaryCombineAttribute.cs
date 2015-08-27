@@ -2,7 +2,7 @@
 
 namespace Helpers.Core.Extensions
 {
-    public static partial class ExtensionMethods
+    internal static partial class ExtensionMethods
     {
         public static IDictionary<string, string> CombineAttribute(this IDictionary<string, string> @this, string key, string value)
         {

@@ -1,7 +1,7 @@
 ﻿
 namespace Helpers.Core.Library
 {
-    public static class FluentTagBuilderExtensions
+    internal static class FluentTagBuilderExtensions
     {
         /// <summary>
         /// Set the class attribute.

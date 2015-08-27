@@ -3,7 +3,7 @@
 namespace Helpers.Core.Extensions
 {
     /// <exclude/>
-    public static partial class ExtensionMethods
+    internal static partial class ExtensionMethods
     {
         /// <exclude/>
         public static bool Contains(this string @this, string value, StringComparison comparisonType)
