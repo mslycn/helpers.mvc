@@ -142,6 +142,34 @@
             <td>Set the visibility for all of the skip buttons.</td>
         </tr>
 
+        <tr>
+            <td><a href="#icons"><i class="fa fa-link"></i></a></td>
+            <td><code>first-icon</code></td>
+            <td>string</td>
+            <td>-</td>
+            <td>Set the icon for the first button.</td>
+        </tr>
+        <tr>
+            <td><a href="#icons"><i class="fa fa-link"></i></a></td>
+            <td><code>prev-icon</code></td>
+            <td>string</td>
+            <td>-</td>
+            <td>Set the icon for the previous button.</td>
+        </tr>
+        <tr>
+            <td><a href="#icons"><i class="fa fa-link"></i></a></td>
+            <td><code>next-icon</code></td>
+            <td>string</td>
+            <td>-</td>
+            <td>Set the icon for the next button.</td>
+        </tr>
+        <tr>
+            <td><a href="#icons"><i class="fa fa-link"></i></a></td>
+            <td><code>last-icon</code></td>
+            <td>string</td>
+            <td>-</td>
+            <td>Set the icon for the last button.</td>
+        </tr>
     </tbody>
 </table>
 
@@ -415,6 +443,55 @@
         <h5><small>markup</small></h5>
         <pre class="prettyprint">
 &lt;pager hide-page-skips="true" /&gt;
+</pre>
+    </div>
+</div>
+
+<!-- ICON -->
+
+
+<div class="page-header">
+    <h2 id="icons">Icons</h2>
+</div>
+
+<div>
+    <h4>Set custom icons for the page skip buttons</h4>
+</div>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <pager first-icon="fa fa-arrow-circle-left"
+               prev-icon="fa fa-arrow-circle-o-left"
+               next-icon="fa fa-arrow-circle-o-right"
+               last-icon="fa fa-arrow-circle-right"
+               asp-fragment="icons" />
+    </div>
+    <div class="panel-footer">
+        <h5><small>markup</small></h5>
+        <pre class="prettyprint">
+&lt;pager hide-first-last="true" /&gt;
+</pre>
+    </div>
+</div>
+
+<div>
+    <h4>Set custom icons for the page skip buttons</h4>
+</div>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <pager first-icon="fa fa-arrow-circle-left"
+               first-text="home"
+               prev-icon="fa fa-arrow-circle-o-left"
+               prev-text="earlier"
+               next-icon="fa fa-arrow-circle-o-right"
+               next-text="later"
+               last-icon="fa fa-arrow-circle-right"
+               last-text="end"
+               asp-fragment="icons" />
+    </div>
+    <div class="panel-footer">
+        <h5><small>markup</small></h5>
+        <pre class="prettyprint">
+&lt;pager hide-first-last="true" /&gt;
 </pre>
     </div>
 </div>
