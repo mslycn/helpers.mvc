@@ -1,6 +1,7 @@
-# helpers.mvc ![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square) [![nuget package](https://img.shields.io/nuget/v/helpers.mvc.png?style=flat-square)](https://www.nuget.org/profiles/simonray)
+# helpers.mvc (MVC6, ASPNET5, vNext)
+![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square) [![nuget package](https://img.shields.io/nuget/v/helpers.mvc.png?style=flat-square)](https://www.nuget.org/profiles/simonray)
 
-Contains a collection of custom Tag Helpers for building ASP.NET MVC 6 applications.
+Contains a collection of custom Tag Helpers for building ASP.NET 5, MVC 6 and Core applications.
 
 ## Setup
 
