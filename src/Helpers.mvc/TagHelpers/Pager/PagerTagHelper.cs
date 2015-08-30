@@ -17,10 +17,10 @@ namespace Helpers.TagHelpers
     [TargetElement("pager")]
     public class PagerTagHelper : TagHelper, IPagerAttributes
     {
-        ///<exclude/>
+        /// <exclude/>
         [HtmlAttributeNotBound, ViewContext]
         public ViewContext ViewContext { get; set; }
-        ///<exclude/>
+        /// <exclude/>
         [HtmlAttributeNotBound]
         protected IUrlHelper UrlHelper { get; set; }
 
@@ -67,64 +67,76 @@ namespace Helpers.TagHelpers
         private const string TotalAttributeName = "total";
 
         #region IPagerAttributes
-        ///<inheritDoc/>
+        /// <inheritDoc/>
         [HtmlAttributeName("class")]
         public string PagerClass { get; set; } = PagerDefaults.Class;
-        ///<inheritDoc/>
+        /// <inheritDoc/>
         [HtmlAttributeName("links")]
         public int PagerLinks { get; set; } = PagerDefaults.Links;
-        ///<inheritDoc/>
+        /// <inheritDoc/>
         [HtmlAttributeName("halign")]
         public HorizontalAlignment PagerHalign { get; set; } = PagerDefaults.Halign;
-        ///<inheritDoc/>
+        /// <inheritDoc/>
         [HtmlAttributeName("show-status")]
         public bool PagerShowStatus { get; set; } = PagerDefaults.ShowStatus;
-        ///<inheritDoc/>
+        /// <inheritDoc/>
         [HtmlAttributeName("show-sizes")]
         public bool PagerShowSizes { get; set; } = PagerDefaults.ShowSizes;
-        ///<inheritDoc/>
+        /// <inheritDoc/>
         [HtmlAttributeName("status-format")]
         public string PagerStatusFormat { get; set; } = StringResources.PagerStatusFormat;
-        ///<inheritDoc/>
+        /// <inheritDoc/>
         [HtmlAttributeName("sizes-format")]
         public string PagerSizesFormat { get; set; } = PagerDefaults.Sizes;
-        ///<inheritDoc/>
+        /// <inheritDoc/>
         [HtmlAttributeName("prev-text")]
-        public string PagerPrevText { get; set; } = StringResources.PagerPrevText;
-        ///<inheritDoc/>
+        public string PagerPrevText { get; set; }
+        /// <inheritDoc/>
         [HtmlAttributeName("next-text")]
-        public string PagerNextText { get; set; } = StringResources.PagerNextText;
-        ///<inheritDoc/>
+        public string PagerNextText { get; set; }
+        /// <inheritDoc/>
         [HtmlAttributeName("first-text")]
-        public string PagerFirstText { get; set; } = StringResources.PagerFirstText;
-        ///<inheritDoc/>
+        public string PagerFirstText { get; set; }
+        /// <inheritDoc/>
         [HtmlAttributeName("last-text")]
-        public string PagerLastText { get; set; } = StringResources.PagerLastText;
-        ///<inheritDoc/>
+        public string PagerLastText { get; set; }
+        /// <inheritDoc/>
         [HtmlAttributeName("hide-first-last")]
         public bool PagerHideFirstLast { get; set; }
-        ///<inheritDoc/>
+        /// <inheritDoc/>
         [HtmlAttributeName("hide-next-prev")]
         public bool PagerHideNextPrev { get; set; }
-        ///<inheritDoc/>
+        /// <inheritDoc/>
         [HtmlAttributeName("hide-page-skips")]
         public bool PagerHidePageSkips { get; set; }
+        /// <inheritDoc/>
+        [HtmlAttributeName("first-icon")]
+        public string PagerFirstIcon { get; set; }
+        /// <inheritDoc/>
+        [HtmlAttributeName("prev-icon")]
+        public string PagerPrevIcon { get; set; }
+        /// <inheritDoc/>
+        [HtmlAttributeName("next-icon")]
+        public string PagerNextIcon { get; set; }
+        /// <inheritDoc/>
+        [HtmlAttributeName("last-icon")]
+        public string PagerLastIcon { get; set; }
         #endregion
 
-        ///<exclude/>
+        /// <exclude/>
         private const string RouteAttributePrefix = "asp-route-";
-        ///<exclude/>
+        /// <exclude/>
         private IDictionary<string, object> RouteValues;
-        ///<exclude/>
+        /// <exclude/>
         private const string AjaxAttributePrefix = "data-ajax";
-        ///<exclude/>
+        /// <exclude/>
         private IDictionary<string, object> AjaxValues;
 
-        ///<exclude/>
+        /// <exclude/>
         private string[] PossiblePageIndexParameterNames = { "Page", "Current", "Index", "CurrentPage" };
-        ///<exclude/>
+        /// <exclude/>
         private string[] PossiblePageSizeParameterNames = { "PageSize", "Size" };
-        ///<exclude/>
+        /// <exclude/>
         private string[] PossibleTotalParameterNames = { "TotalCount", "Total", "Count", "TotalItemCount" };
 
         public PagerTagHelper(IUrlHelper urlHelper)
@@ -137,6 +149,20 @@ namespace Helpers.TagHelpers
             RouteValues = output.TrimPrefixedAttributes(RouteAttributePrefix);
             AjaxValues = output.FindPrefixedAttributes(AjaxAttributePrefix);
 
+            ApplyActionAttributes();
+            ApplyPaginationAttributes(context);
+            ApplyIconTextAttributes();
+
+            output.TagName = null;
+            //if there are no rows then don't show
+            if (PageSize != 0 && Total != 0)
+                output.Content.SetContent(Create(output, PageIndex, Total, PageSize));
+
+            await base.ProcessAsync(context, output);
+        }
+
+        private void ApplyActionAttributes()
+        {
             //has an action or controller been specified? if not, default
             if (string.IsNullOrEmpty(AspAction))
                 AspAction = (string)ViewContext.RouteData.Values["action"];
@@ -144,7 +170,10 @@ namespace Helpers.TagHelpers
                 AspController = (string)ViewContext.RouteData.Values["controller"];
             if (string.IsNullOrEmpty(AspController))
                 throw new ArgumentException($"You must specify the '{nameof(AspController).SplitCamelCase('-').ToLower()}' attribute");
+        }
 
+        private void ApplyPaginationAttributes(TagHelperContext context)
+        {
             //not specified any pager parameters
             if (!context.AllAttributes.ContainsName(PageIndexAttributeName) &&
                 !context.AllAttributes.ContainsName(PageSizeAttributeName) &&
@@ -167,13 +196,18 @@ namespace Helpers.TagHelpers
                 PageSize = Convert.ToInt32(size.Model);
                 Total = Convert.ToInt32(total.Model);
             }
+        }
 
-            output.TagName = null;
-            //if there are no rows then don't show
-            if (PageSize != 0 && Total != 0)
-                output.Content.SetContent(Create(output, PageIndex, Total, PageSize));
-
-            await base.ProcessAsync(context, output);
+        private void ApplyIconTextAttributes()
+        {
+            if (string.IsNullOrEmpty(PagerFirstIcon) && string.IsNullOrEmpty(PagerFirstText))
+                PagerFirstText = StringResources.PagerFirstText;
+            if (string.IsNullOrEmpty(PagerFirstIcon) && string.IsNullOrEmpty(PagerPrevText))
+                PagerPrevText = StringResources.PagerPrevText;
+            if (string.IsNullOrEmpty(PagerFirstIcon) && string.IsNullOrEmpty(PagerNextText))
+                PagerNextText = StringResources.PagerNextText;
+            if (string.IsNullOrEmpty(PagerFirstIcon) && string.IsNullOrEmpty(PagerLastText))
+                PagerLastText = StringResources.PagerLastText;
         }
 
         private string Create(TagHelperOutput output, int pageIndex, int totalItems, int pageSize)
@@ -267,23 +301,23 @@ namespace Helpers.TagHelpers
                 .StartTag("div", "col-md-6")
                     .StartTag("ul", $"{ulClass} {PagerClass}")
                         .AppendIf(!PagerHidePageSkips && !PagerHideFirstLast,
-                            AddLink(1, false, pageIndex == 1, PagerFirstText, StringResources.PagerFirstHint))
+                            AddLink(1, false, pageIndex == 1, PagerFirstText, StringResources.PagerFirstHint, PagerFirstIcon, HorizontalAlignment.Left))
                         .AppendIf(!PagerHidePageSkips && !PagerHideNextPrev,
-                            AddLink(pageIndex - 1, false, !hasPreviousPage, PagerPrevText, StringResources.PagerPrevHint))
+                            AddLink(pageIndex - 1, false, !hasPreviousPage, PagerPrevText, StringResources.PagerPrevHint, PagerPrevIcon, HorizontalAlignment.Left))
                         .Action(tag =>
                         {
                             for (int i = firstPageNumber; i <= lastPageNumber; i++)
-                                tag.Append(AddLink(i, i == pageIndex, false, i.ToString(), i.ToString()));
+                                tag.Append(AddLink(i, i == pageIndex, false, i.ToString(), i.ToString(), null, HorizontalAlignment.Left));
                         })
-                        .AppendIf(!PagerHidePageSkips && !PagerHideNextPrev, 
-                                AddLink(pageIndex + 1, false, !hasNextPage, PagerNextText, StringResources.PagerNextHint))
-                        .AppendIf(!PagerHidePageSkips && !PagerHideFirstLast, 
-                                AddLink(totalPages, false, pageIndex == totalPages, PagerLastText, StringResources.PagerLastHint))
+                        .AppendIf(!PagerHidePageSkips && !PagerHideNextPrev,
+                                AddLink(pageIndex + 1, false, !hasNextPage, PagerNextText, StringResources.PagerNextHint, PagerNextIcon, HorizontalAlignment.Right))
+                        .AppendIf(!PagerHidePageSkips && !PagerHideFirstLast,
+                                AddLink(totalPages, false, pageIndex == totalPages, PagerLastText, StringResources.PagerLastHint, PagerLastIcon, HorizontalAlignment.Right))
                     .EndTag()
                 .EndTag();
         }
 
-        private string AddLink(int index, bool active, bool disabled, string linkText, string tooltip)
+        private string AddLink(int index, bool active, bool disabled, string linkText, string tooltip, string icon, HorizontalAlignment iconPosition)
         {
             if (!disabled)
             {
@@ -301,7 +335,24 @@ namespace Helpers.TagHelpers
                         .Attribute("title", tooltip)
                         .ActionIf(!disabled, tag => tag.Attribute("href", UrlHelper.Action(AspAction, AspController, RouteValues, AspProtocol, AspHost, AspFragment)))
                         .Attributes(AjaxValues)
-                        .Append(linkText)
+                        .Append(tag =>
+                        {
+                            if (!string.IsNullOrEmpty(icon))
+                            {
+                                return new FluentTagBuilder()
+                                    .StartTag("span")
+                                        .AppendIf(iconPosition == HorizontalAlignment.Left, new FluentTagBuilder()
+                                            .StartTag("i").Attribute("class", icon).EndTag()
+                                            .AppendIf(!string.IsNullOrEmpty(linkText), Const.NonBreakingSpace))
+                                        .Append(linkText)
+                                        .AppendIf(iconPosition == HorizontalAlignment.Right, new FluentTagBuilder()
+                                            .AppendIf(!string.IsNullOrEmpty(linkText), Const.NonBreakingSpace)
+                                            .StartTag("i").Attribute("class", icon).EndTag())
+                                    .EndTag();
+                            }
+                            else
+                                return new FluentTagBuilder().Append(linkText);
+                        })
                     .EndTag()
                 .EndTag();
         }
