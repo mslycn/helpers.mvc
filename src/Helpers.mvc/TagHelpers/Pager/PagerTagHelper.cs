@@ -156,7 +156,7 @@ namespace Helpers.TagHelpers
             output.TagName = null;
             //if there are no rows then don't show
             if (PageSize != 0 && Total != 0)
-                output.Content.SetContent(Create(output, PageIndex, Total, PageSize));
+                output.Content.SetContent(Create(PageIndex, Total, PageSize));
 
             await base.ProcessAsync(context, output);
         }
@@ -210,7 +210,7 @@ namespace Helpers.TagHelpers
                 PagerLastText = StringResources.PagerLastText;
         }
 
-        private string Create(TagHelperOutput output, int pageIndex, int totalItems, int pageSize)
+        private string Create(int pageIndex, int totalItems, int pageSize)
         {
             return new FluentTagBuilder()
                 .StartTag("div", "row").Style("display: flex; align-items: center;")
