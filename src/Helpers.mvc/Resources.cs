@@ -1,7 +1,8 @@
 ﻿namespace Helpers.TagHelpers
 {
-    internal static partial class AppResources
+    internal static partial class Const
     {
+        public const string NonBreakingSpace = "&nbsp;";
         public const string DisplayTemplateViewPath = "DisplayTemplates";
     }
 
